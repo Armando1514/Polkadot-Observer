@@ -28,7 +28,7 @@ function MonitorAccountCreate({ onCreate, onError }) {
             setThreshold('');
         }
         else {
-            onError();
+            onError('You need to insert a valid Address and a valid numeric Threshold.');
         }
 
     };
