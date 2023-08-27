@@ -4,6 +4,20 @@
 
 ![components](../doc/frontendComponent/img/components-frontend.jpg)
 
+## Docker Image
+
+To run the docker image, go with the terminal in the frontend folder and type:
+
+```docker image build -t frontend:v1 .```
+
+```docker tag frontend:v1 <your-repository>/frontend:v1```
+
+```docker tag frontend:v1 <your-repository>/frontend:latest```
+
+```docker run -p 3300:80 --name react <your-repository>/frontend:latest ```
+
+Now you can access the frontend on http://localhost:3300/
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -15,6 +29,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+### `npm server`
+
+Makes available a json-server that simulates a db, so you can make persistent your addresses and test the apis (do not use in prod).
 
 ### `npm test`
 
