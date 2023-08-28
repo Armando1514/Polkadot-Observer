@@ -15,6 +15,9 @@ To run the docker image, go with the terminal in the backend folder and type:
 
 Now you can access the backend on http://localhost:3001/
 
+## Swagger
+There is a file called openapi.yaml, you can use this website: https://editor.swagger.io/ to read the specifications of the APIs.
+
 ## E2E Tests
 
 You first need to run an instance of mongodb locally,
