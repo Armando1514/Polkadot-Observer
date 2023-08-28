@@ -1,0 +1,55 @@
+openapi: 3.0.3
+info:
+  title: 'One Time Secret API'
+  description: 'API to store secrets and retrieve them only one'
+  version: 1.0.0
+
+servers:
+  - url: https://onetimesecret.io/api/v1
+    description: production server
+  - url: https://dev.onetimesecret.io/api/v1
+    description: development server
+
+paths:
+  /api/v1/accounts:
+    get:
+      summary: Returns a list of accounts to monitor
+      responses:
+        200:
+          description: Return a list of accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+              example:
+                [
+                  {
+                    address: '0x056a6a4e203766ffbea3146967ef25e9daf677b14dc6f6ed8919b1983c9bebbc',
+                    threshold: 4.4,
+                  },
+                ]
+    post:
+      summary: Save the accounts that needs to be monitored by the system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account'
+            example:
+              {
+                address: '0x056a6a4e203766ffbea3146967ef25e9daf677b14dc6f6ed8919b1983c9bebbc',
+                threshold: 4.4,
+              }
+      responses:
+        201:
+          description: account stored in the database
+
+components:
+  schemas:
+    account:
+      type: object
+      properties:
+        address:
+          type: string
+        threshold:
+          type: number
