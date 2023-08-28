@@ -17,4 +17,9 @@ const application = new Application(routeList);
 
 const expressApplication = application.getExpressApplication();
 
+const port = process.env.PORT || 3001;
+
+expressApplication.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 export default expressApplication;

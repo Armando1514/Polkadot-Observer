@@ -8,12 +8,9 @@ export class AccountsController {
     next: NextFunction
   ) => {
     try {
-      console.log('cazzo');
       const accounts = await this.accountsRetriever.retrieveAccounts();
       res.status(200).json(accounts);
     } catch (error) {
-      console.log('cazzo1', error);
-
       next(error);
     }
   };

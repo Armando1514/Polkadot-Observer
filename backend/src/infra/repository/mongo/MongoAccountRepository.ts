@@ -14,7 +14,6 @@ export class MongoAccountRepository implements AccountRepository {
     if (docs.length === 0) return null;
     // Assuming Account is a class constructor
 
-    console.log(docs);
     const accounts = docs.map((doc) => new Account(doc.address, doc.threshold));
     return accounts;
   }
