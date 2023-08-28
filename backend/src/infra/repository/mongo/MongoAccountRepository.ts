@@ -12,12 +12,16 @@ export class MongoAccountRepository implements AccountRepository {
   async retrieveAccounts(): Promise<Account[] | null> {
     const docs = await AccountModel.find({});
     if (docs.length === 0) return null;
-    // Assuming Account is a class constructor
-
     const accounts = docs.map((doc) => new Account(doc.address, doc.threshold));
     return accounts;
   }
-  async storeAccount(address: string, threshold: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async storeAccount(account: Account): Promise<void> {
+    const doc = await AccountModel.findOne({ address: account.address });
+    if (doc == null) {
+      await AccountModel.create({
+        address: account.address,
+        threshold: account.threshold,
+      });
+    }
   }
 }

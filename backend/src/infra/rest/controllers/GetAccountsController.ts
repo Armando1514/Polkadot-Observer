@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AccountsRetriever } from '../../../domain/services/AccountsRetriever';
-export class AccountsController {
+export class GetAccountsController {
   constructor(private accountsRetriever: AccountsRetriever) {}
   retrieveAccounts = async (
     req: Request,
