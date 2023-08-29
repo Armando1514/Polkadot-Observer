@@ -1,5 +1,13 @@
 # Backend Monitor App
 
+## Hexagonal architecture
+
+Info about this architecture at this [link](https://alistair.cockburn.us/hexagonal-architecture/).
+
+![architecture](../doc/backendComponent/img/architecture.png)
+
+## COMPONENT DIAGRAM (KIND OF)
+![component diagram](../doc/backendComponent/img/componentDiagram.png)
 
 ## Docker Image
 
