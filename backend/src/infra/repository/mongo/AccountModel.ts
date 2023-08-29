@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 interface IAccountSchema extends mongoose.Document {
   address: string;
   threshold: number;
