@@ -2,11 +2,13 @@ import mongoose from 'mongoose';
 import { Account } from '../../../domain/model/Account';
 import { AccountRepository } from '../AccountRepository';
 import { AccountModel } from './AccountModel';
+import keys from '../../../keys';
 
 export class MongoAccountRepository implements AccountRepository {
   constructor() {
     if (mongoose.connection.readyState !== 1) {
-      mongoose.connect('mongodb://localhost:27017/accounts');
+      const uri = keys.mongoURI || 'mongodb://localhost:27017/accounts';
+      mongoose.connect(uri);
     }
   }
   async retrieveAccounts(): Promise<Account[] | null> {
