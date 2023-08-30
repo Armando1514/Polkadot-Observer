@@ -1,4 +1,3 @@
 export interface Analyzer<T> {
-  runSingle(data: T): T | undefined;
-  runBatch(data: T[]): any;
+  run(data: T[]): any;
 }

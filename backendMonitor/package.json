@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start:run": " nodemon dist/src/index.js",
-    "start": "concurrently npm:start:*",
+    "start": "tsc && concurrently npm:start:*",
     "test": "npm run build && jest --forceExit",
     "test:watch": "jest --forceExit --watchAll"
   },

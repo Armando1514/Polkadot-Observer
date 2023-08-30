@@ -18,19 +18,7 @@ export class AccountAnalyzer implements Analyzer<Account> {
     return AccountAnalyzer.instance;
   }
 
-  runSingle(account: Account): Account | undefined {
-    if (
-      !this.hasDuplicates(account) &&
-      this.isCorrectKey(account) &&
-      this.isCorrectThreshold(account)
-    ) {
-      this.hashMap.set(account.address, account);
-      return account;
-    }
-    return undefined;
-  }
-
-  runBatch(accounts: Account[]): Map<Account['address'], Account> {
+  run(accounts: Account[]): Map<Account['address'], Account> {
     accounts
       .filter(this.isCorrectKey)
       .filter(this.isCorrectThreshold)

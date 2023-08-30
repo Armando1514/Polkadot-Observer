@@ -1,6 +1,16 @@
+import { AccountAnalyzer } from './analyzer/accounts/AccountAnalyzer';
 import { CsvAccountReader } from './readers/csv/CsvAccountReader';
+import { MongoAccountReader } from './readers/database/mongo/accounts/MongoAccountReader';
 
-const reader = new CsvAccountReader('addresses.csv');
-reader.read();
+const readerCsv = new CsvAccountReader('addresses.csv');
+readerCsv.read();
+const analyzer = AccountAnalyzer.getInstance();
 
-console.log(reader.data);
+analyzer.run(readerCsv.data);
+
+const readerDb = new MongoAccountReader();
+readerDb.read();
+
+readerDb.checkEvents.on('arrayFilled', () => {
+  analyzer.run(readerDb.data);
+});
