@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-monitor-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: backend-monitor
+  template:
+    metadata:
+      labels:
+        component: backend-monitor
+    spec:
+      containers:
+        - name: backend-monitor
+          image: armando1514/backend-monitor:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongodb-cluster-ip-service:27017/accounts
+            - name: CHAIN_URI
+              value: wss://westend-rpc.polkadot.io
+            - name: POOLING_FREQUENCY
+              value: '3000'
