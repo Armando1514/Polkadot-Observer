@@ -7,6 +7,10 @@ import { AccountsRetriever } from './domain/services/AccountsRetriever';
 import { AccountStorer } from './domain/services/AccountStorer';
 import { SaveAccountController } from './infra/rest/controllers/SaveAccountController';
 import { SaveAccountRoute } from './infra/rest/routes/SaveAccountRoute';
+import { ReportedAccountsRetriever } from './domain/services/ReportedAccountsRetriever';
+import { MongoReportedAccountsRepository } from './infra/repository/mongo/MongoReportedAccountRepository';
+import { GetReportedAccountsController } from './infra/rest/controllers/GetReportedAccountsController';
+import { GetReportedAccountsRoute } from './infra/rest/routes/GetReportedAccountsRoute';
 
 const mongoAccountRepository = new MongoAccountRepository();
 
@@ -18,9 +22,21 @@ const accountStorer = new AccountStorer(mongoAccountRepository);
 const saveAccountController = new SaveAccountController(accountStorer);
 const saveAccountRoute = new SaveAccountRoute(saveAccountController);
 
+const mongoReportedAccountsRepository = new MongoReportedAccountsRepository();
+const reportedAccountsRetrievers = new ReportedAccountsRetriever(
+  mongoReportedAccountsRepository
+);
+const getReportedAccountsController = new GetReportedAccountsController(
+  reportedAccountsRetrievers
+);
+const getReportedAccountsRoute = new GetReportedAccountsRoute(
+  getReportedAccountsController
+);
+
 const routeList: Route[] = [];
 routeList.push(getAccountsRoute);
 routeList.push(saveAccountRoute);
+routeList.push(getReportedAccountsRoute);
 
 const application = new Application(routeList);
 
