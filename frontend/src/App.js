@@ -6,21 +6,21 @@ import axios from 'axios';
 function App() {
   const [accounts, setAccounts] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+
   useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const response = await axios.get(`/api/v1/accounts`);
+        if (response.data !== null) {
+          setAccounts(response.data);
+        }
+      } catch (err) {
+        console.log(err);
+        showError(`ERROR: ${err.message}`);
+      }
+    };
     fetchAccounts();
   }, []);
-
-  const fetchAccounts = async () => {
-    try {
-      const response = await axios.get(`/api/v1/accounts`);
-      if (response.data !== null) {
-        setAccounts(response.data);
-      }
-    } catch (err) {
-      console.log(err);
-      showError(`ERROR: ${err.message}`);
-    }
-  };
 
   const createAccount = async (address, threshold) => {
     const check_address = (account) => account._address === address;
