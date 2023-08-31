@@ -7,13 +7,14 @@
     "build": "tsc",
     "start:run": " nodemon dist/src/index.js",
     "start": "tsc && concurrently npm:start:*",
-    "test": "npm run build && jest --forceExit",
+    "test": "npm run build && jest  --forceExit",
     "test:watch": "jest --forceExit --watchAll"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@polkadot/api": "^10.9.1",
     "@polkadot/keyring": "^12.4.2",
     "@polkadot/util": "^12.4.2",
     "mongoose": "^7.4.5"

@@ -10,6 +10,6 @@ const AccountReportedSchema = new mongoose.Schema({
 });
 
 export const MongoAccountReportedModel = mongoose.model<IAccountReportedSchema>(
-  'ReportedAccounts',
+  'Reported_Accounts',
   AccountReportedSchema
 );

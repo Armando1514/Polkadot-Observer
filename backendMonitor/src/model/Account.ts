@@ -1,5 +1,3 @@
-import { isHex, hexToU8a } from '@polkadot/util';
-import { decodeAddress, encodeAddress } from '@polkadot/keyring';
 export class Account {
   constructor(private _address: string, private _threshold: number) {}
   get address(): string {

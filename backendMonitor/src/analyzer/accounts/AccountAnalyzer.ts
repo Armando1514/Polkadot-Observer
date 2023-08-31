@@ -18,14 +18,20 @@ export class AccountAnalyzer implements Analyzer<Account> {
     return AccountAnalyzer.instance;
   }
 
-  run(accounts: Account[]): Map<Account['address'], Account> {
-    accounts
+  run(accounts: Account[]): Map<string, Account> {
+    const accountFiltered = accounts
       .filter(this.isCorrectKey)
       .filter(this.isCorrectThreshold)
-      .filter((account) => !this.hasDuplicates(account))
-      .forEach((account) => this.hashMap.set(account.address, account));
+      .filter((account) => !this.hasDuplicates(account));
+    accountFiltered.forEach((account) =>
+      this.hashMap.set(account.address, account)
+    );
 
-    return this.hashMap;
+    // Removes the possible duplicates that were in the input,
+    // before I have just checked with the already inserted addresses
+    return new Map(
+      accountFiltered.map((account) => [account.address, account])
+    );
   }
 
   private hasDuplicates(account: Account): boolean {

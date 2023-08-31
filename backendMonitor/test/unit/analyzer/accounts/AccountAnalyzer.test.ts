@@ -6,7 +6,7 @@ describe('Account Reader Test', () => {
   });
   const accountIncorrectHash = new Account('ciao', 2);
   const accountIncorrectThreshold = new Account(
-    '0x903182d757c49195dbb6873788be00ac8f444145993458a7102a6edca2826b75',
+    '0xe571ec90f411d6b0e26f6597470c397b9998df8772bda34adf7aea6e8adb0335',
     undefined
   );
   const correctAccount1 = new Account(
@@ -20,28 +20,28 @@ describe('Account Reader Test', () => {
 
   const analyzer = AccountAnalyzer.getInstance();
 
-  it('should keep track of accounts analyzed', () => {
-    const hash = analyzer.run([correctAccount1, correctAccount2]);
-    expect(hash.size).toEqual(2);
+  it('should return the two accounts analyzed', () => {
+    const cleanedAccounts = analyzer.run([correctAccount1, correctAccount2]);
+    expect(cleanedAccounts.size).toEqual(2);
   });
 
-  it('should keep track of accounts with interleaves between singleRun and BatchRun', () => {
-    analyzer.run([correctAccount2]);
-    const hash = analyzer.run([correctAccount1]);
-    expect(hash.size).toEqual(2);
+  it('should insert only one account  if the second one has invalid key', () => {
+    const cleanedAccounts = analyzer.run([
+      correctAccount1,
+      accountIncorrectHash,
+    ]);
+    expect(cleanedAccounts.size).toEqual(1);
+  });
+  it('should insert only one account with  if the second one has invalid threshold', () => {
+    const cleanedAccounts = analyzer.run([
+      correctAccount1,
+      accountIncorrectThreshold,
+    ]);
+    expect(cleanedAccounts.size).toEqual(1);
   });
 
-  it('should insert only one account with batchRun if the second one has invalid key', () => {
-    const hash = analyzer.run([correctAccount1, accountIncorrectHash]);
-    expect(hash.size).toEqual(1);
-  });
-  it('should insert only one account with batchRun if the second one has invalid threshold', () => {
-    const hash = analyzer.run([correctAccount1, accountIncorrectThreshold]);
-    expect(hash.size).toEqual(1);
-  });
-
-  it('should insert only one account with batchRun if the second one is a duplicate', () => {
-    const hash = analyzer.run([correctAccount1, correctAccount1]);
-    expect(hash.size).toEqual(1);
+  it('should insert only one account if the second one is a duplicate', () => {
+    const cleanedAccounts = analyzer.run([correctAccount1, correctAccount1]);
+    expect(cleanedAccounts.size).toEqual(1);
   });
 });
