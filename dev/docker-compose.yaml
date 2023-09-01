@@ -28,7 +28,7 @@ services:
       MONGO_URI: mongodb://mongodb:27017/accounts
     depends_on:
       - mongodb
-      
+
   backend_monitor:
     build:
       context: ../backendMonitor
@@ -42,6 +42,12 @@ services:
       POOLING_FREQUENCY: 3000
     depends_on:
       - mongodb
+
+  mongodb-query-exporter:
+    build:
+      context: ../mongoExporter
+    ports:
+      - '9412:9412'
 
   mongodb:
     image: mongo
