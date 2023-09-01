@@ -1,0 +1,11 @@
+groups:
+  - name: Accounts Alert
+    rules:
+      - alert: Accounts Under Threshold
+        # Condition for alerting
+        expr: firing_reported_accounts > 0
+        annotations:
+          title: 'Address {{ $labels.address }} free balance under threshold!'
+          description: '{{ $labels.address }} it happened at block number {{ $labels.blockNumber }}.'
+        labels:
+          severity: 'critical'
