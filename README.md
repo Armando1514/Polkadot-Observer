@@ -5,6 +5,15 @@ This project aims to provide a robust solution for observing the [Polkadot netwo
 ## Architecture Overview
 
 ![architecture](./doc/img/architecture.png)
+
+## EXPLANATION VIDEO
+
+You can find a link to the video on [my youtube channel](https://www.youtube.com/watch?v=zv0BsgzNAT4), in the video you will find about this repo:
+
+- How to run locally.
+- Repo structure.
+- Showcase Features.
+
 ## How to run
 
 ### Docker-compose
@@ -33,13 +42,13 @@ This project aims to provide a robust solution for observing the [Polkadot netwo
 
 
 
-### Run On K8S Locally
+### Run K8S locally
 
 ![k8s-diagram](./doc/img/k8s-diagram.png)
 
 1. **OPTIONAL**: 
 
-   - In the folder ./k8s, in the file monitoring-deployment.yaml at service called alert-manager-container, If you want to send the alert to discord, it needs to know the webhook ur l( [how to set a webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)), so go at service alert_manager, and you will find:
+   - In the folder ./k8s, in the file monitoring-deployment.yaml at service called alert-manager-container, If you want to send the alert to discord, it needs to know the webhook url ([how to set a webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)), so go at service alert_manager, and you will find:
 
      ```
                  receivers:
@@ -81,6 +90,16 @@ This project aims to provide a robust solution for observing the [Polkadot netwo
 5. WAIT A MINUTE OR MORE, THE SERVICES NEED TO START (It requires more time if is the first time you have installed Ingress-Nginx-Controller ).
 
 6. Now if you have docker desktop you can access localhost:80 and see the dashboard otherwise type minikube ip to retrieve the IP and type it in your browser. If doesn't work, try to restart the cluster or docker desktop.
+
+
+
+### Threshold Format
+
+What format am I expecting from the threshold input?
+
+I am expecting the same format as on the dashboard platform, for instance what you retrieve from the chain as 664707494049 converted to unit in **0.6647** (once the account becomes for instance 660007494049, the threshold wiill be triggered) . So on the frontend or csv I expect you to write: 0.6647 for that.
+
+![threshold-format](./doc/img/threshold.png)
 
 ## Style Guides
 

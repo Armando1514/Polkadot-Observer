@@ -66,8 +66,8 @@ services:
       - -euc
       - |
         # mkdir -p /etc/alertmanager
-        echo "$${ALERTMANAGER_CONFIG}" > /etc/alertmanager/alertmanager.yml
-        /bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/alertmanager
+        echo "$${ALERTMANAGER_CONFIG}" > /etc/alertmanager/alertmanager-config.yml
+        /bin/alertmanager --config.file=/etc/alertmanager/alertmanager-config.yml --storage.path=/alertmanager
     ports:
       - '9093:9093'
     environment:

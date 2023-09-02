@@ -3,6 +3,7 @@ import { AccountReport } from '../../model/AccountReport';
 import { MongoAccountReportedRepository } from '../../reporters/database/accountsReported/MongoAccountReportedRepository';
 import { Guard } from '../Guard';
 import { ChainConnector } from './ChainConnector';
+import { BN, formatBalance } from '@polkadot/util';
 
 export class AccountChainGuard
   implements Guard<Map<string, Account>, AccountReport>
@@ -23,7 +24,9 @@ export class AccountChainGuard
             const accountThreshold = accounts.get(addressList[index]).threshold;
             const freeBalance = accountInfo.data.free.toNumber();
 
-            if (this.compareOnlyFirst5Digits(freeBalance, accountThreshold)) {
+            if (
+              this.compareBalanceAndThreshold(freeBalance, accountThreshold)
+            ) {
               const blockNumber = (
                 await connector.api.query.system.number()
               ).toNumber();
@@ -42,17 +45,19 @@ export class AccountChainGuard
       );
     }
   }
-  private compareOnlyFirst5Digits(
+  private compareBalanceAndThreshold(
     polkadotBalance: number,
     thresholdNumber: number
   ): boolean {
-    const polkadotBalanceString = polkadotBalance.toString();
-    const shorterNumberString = thresholdNumber.toString();
+    // TO UNIT
+    const formattedBalance = parseFloat(
+      formatBalance(new BN(polkadotBalance), {
+        withSi: false,
+        forceUnit: '-',
+        decimals: 12,
+      })
+    );
 
-    // Extract the first 5 characters from the strings
-    const polkadotFirst5Digits = polkadotBalanceString.slice(0, 5);
-    const thresholdNumberFirst5Digits = shorterNumberString.slice(0, 5);
-
-    return thresholdNumberFirst5Digits > polkadotFirst5Digits;
+    return formattedBalance < thresholdNumber;
   }
 }
