@@ -13,4 +13,6 @@ route:
 receivers:
   - name: discord
     discord_configs:
-      - webhook_url: 'https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks'
+      # IT DOESN'T SUPPORT TEMPLATING FOR SECURITY REASONS YOU NEED TO COME HERE AND SET. READ docker-compose
+      # https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+      - webhook_url: https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks

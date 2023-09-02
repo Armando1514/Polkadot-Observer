@@ -24,3 +24,11 @@ spec:
               value: wss://westend-rpc.polkadot.io
             - name: POOLING_FREQUENCY
               value: '3000'
+          volumeMounts:
+            - name: local-files
+              mountPath: /app/addresses.csv
+      volumes:
+        - name: local-files
+          ## YOU MUST CHANGE THIS WITH YOUR ABSOLUTE PATH TO THE addresses.csv path
+          hostPath:
+            path: s #TO BE EDIT WITH THE ABSOLUTE PATH OF THE ../BACKENDMONITOR/ADDRESSES.CSV BASED ON THE MACHINE
